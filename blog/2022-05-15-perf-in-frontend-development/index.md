@@ -24,7 +24,11 @@ Rõ ràng perfomance không phải vấn đề với chiếc macbook pro, nhưng
 
 Xử lý ở phần client, build component,...để render ra UI giao diện cho người dùng.
 
-> Vấn đề cần đặt ra ở đây là: Ứng dụng của bạn cần gì? Sẽ luôn có sự đánh đổi được và mất ở đây. Ứng dụng gmail có thể để loading bar, và người dùng chấp nhận chờ đợi nó mặc dù có thể chuyển tab. Nhưng với facebook, instagram...loading bar xuất hiện là điều không thể chấp nhận được. OK! Hãy suy nghĩ về `tradeoffs`!
+:::note
+
+Vấn đề cần đặt ra ở đây là: Ứng dụng của bạn cần gì? Sẽ luôn có sự đánh đổi được và mất ở đây. Ứng dụng gmail có thể để loading bar, và người dùng chấp nhận chờ đợi nó mặc dù có thể chuyển tab. Nhưng với facebook, instagram...loading bar xuất hiện là điều không thể chấp nhận được. OK! Hãy suy nghĩ về `tradeoffs`!
+
+:::
 
 <h4>I. Javascript Perfomance</h4>
 
@@ -84,7 +88,7 @@ Khi get CSS từ server và build thành CSSOM, browser cần tính toán xem nh
 
 > Hãy sử dụng class đơn giản khi có thể. VÍ dụ follow theo cú pháp BEM
 
-<h4>Lời khuyên</h4>
+:::tip
 
 - Sử dụng selector đơn gian nếu có thể
 - Giảm bớt lượng element chịu ảnh hưởng bởi style. Bởi vì là nó sẽ giamr bớt thời gian tính toán, và thêm vào đó giảm lượng code được trả về client.
@@ -92,16 +96,19 @@ Khi get CSS từ server và build thành CSSOM, browser cần tính toán xem nh
 - Có thể sử dụng media queries ở `Link` tag
 - Inline CSS
 
+:::
+
 
 <b>b. Javascript</b>
 
 Javascript có thể thay đổi layout thông qua việc style inline, sửa đổi một object style... Tuy nhiên đôi khi không nhất thiết các style phải thay đổi đồng loạt. Chẳng hạn khi responsive thì background không change, tuy nhiên, JS vẫn tính toán và trả về kết qủa là các style inline. Điều này là trùng lặp không cần thiết. Do đó cần được optimize.
 
-<h4>Lời khuyên</h4>
+:::tip
 
 - Defer Javascript 
 - Sử dụng `async` attribute ở `script` tag
 
+:::
 
 <b>c. Layout và Reflows</b>
 
@@ -126,12 +133,16 @@ Hãy nhớ rằng khi reflow một element thì những parent hay children elem
 
 Vậy có cách nào để tránh việc reflow:
 
+:::tip
+
 - Thay đổi class ở DOM tree level thấp nhất
 - Tránh việc modify inline style thường xuyên
 - Tránh layout table
 - Batch DOM manipulation
 - Debounce sự kiện window resize
 - Opmize tốc độ của animation
+
+:::
 
 <b>d. Layout thrashing</b>
 
