@@ -11,6 +11,7 @@ tags: [performance, frontend]
 
 OK hãy nghĩ về tình huống sau. Ta sẽ build một single page app. Oh, bạn đang cần truy cập tới website này, hãy để tôi(server) sẽ gửi source code tới ứng dụng và bạn - client sẽ xử lý nó nhé. Ta sẽ xử lý như caching header, vân vân...
 
+<!--truncate-->
 Vấn đề đặt ra là mất bao lâu để bạn có thể get được source code và xử lý nó.
 
 2. <b>Vấn đề 2: Javascript perfomance. Đó là parsing và compile Javascript</b>
