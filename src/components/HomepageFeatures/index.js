@@ -4,11 +4,11 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: "Share what I've learn",
+    title: "Share what I've learnt",
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Sometimes I want to share what I've learn/share. No matter It's funny, interesting, changlenging or tough, extremly annoynce.
+        Sometimes I want to share what I've learnt/shared. No matter how funny it is, interesting, changlenging or tough, extremely annoyne.
       </>
     ),
   },
