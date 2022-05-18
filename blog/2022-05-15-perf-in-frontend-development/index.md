@@ -32,7 +32,7 @@ Vấn đề cần đặt ra ở đây là: Ứng dụng của bạn cần gì? S
 
 <h4>I. Javascript Perfomance</h4>
 
-- Phần lớn thời gian và efford ở đây là việc nén file assets, remove bớt request, giảm tốc độ xử lý request, nhưng một khi ứng dụng running, điều cần quan tâm ở đây là gì?
+- Phần lớn thời gian và effort ở đây là việc nén file assets, remove bớt request, giảm tốc độ xử lý request, nhưng một khi ứng dụng running, điều cần quan tâm ở đây là gì?
 
 <b>Các bước code Js được thực thi ở client</b>
 
@@ -65,7 +65,7 @@ Parsing được chia làm 2 phase: Eager và Lazy:
     add(a, b)
 ```
 
-Như đã nói ở trên, JS engine sẽ bỏ qua function add và sẽ parse tiếp xuống phía dưới, và nó phải quay lại để parse lại function add. Điều này làm giam performance của app. Cách giải quyết ở đây là wrap function đó lại và điều đó dẫn đến việc nó sẽ được thực thi ngay
+Như đã nói ở trên, JS engine sẽ bỏ qua function add và sẽ parse tiếp xuống phía dưới, và nó phải quay lại để parse lại function add. Điều này làm giảm performance của app. Cách giải quyết ở đây là wrap function đó lại và điều đó dẫn đến việc nó sẽ được thực thi ngay
 
 ```js
     const a = 1;
@@ -84,7 +84,7 @@ Không phải lúc nào điều này cũng là hợp lý. Vấn đề ở đây 
 
 <b>a. CSS</b>
 
-Khi get CSS từ server và build thành CSSOM, browser cần tính toán xem những rules nào được apply vào element nào, những rule nào được ưu tiên hơn so với rule nào. Và đó là vấn đề cần được optimize ở đây. Luôn nhớ rằng, bạn xử lý phức tạp thì nó càng tốn time. Ví dụ nếu dùng class bình thường thì khá dễ để figure out, nhưng với kiểu style element dùng dạng nth-child(4n +1) hay `last-child` thì lại tốn nhiều time hơn để xử lý. 
+Khi get CSS từ server và build thành CSSOM, browser cần tính toán xem những rules nào được apply vào element nào, những rule nào được ưu tiên hơn so với rule nào. Và đó là vấn đề cần được optimize ở đây. Luôn nhớ rằng, bạn xử lý phức tạp thì nó càng tốn time. Ví dụ nếu dùng class bình thường thì khá dễ để figure out, nhưng với kiểu style element dùng dạng `nth-child(4n +1)` hay `last-child` thì lại tốn nhiều time hơn để xử lý. 
 
 > Hãy sử dụng class đơn giản khi có thể. VÍ dụ follow theo cú pháp BEM
 
@@ -154,14 +154,17 @@ Có một thư viện gọi là fastdom giúp thực hiện việc này. Thực 
 
 <b>e. Painting</b>
 
-Sau khi layout thì qúa trình tiếp theo là painting. Tuy nhiên, không phải lúc nào painting cũng trigger bởi layout. Ví dụ change size, layout change và trigger repaint. Nhuưng change background thì layout sẽ không được reflow, mà repaint sẽ được trigger ngay.
+Sau khi layout thì qúa trình tiếp theo là painting. Tuy nhiên, không phải lúc nào painting cũng trigger bởi layout. Ví dụ change size, layout change và trigger repaint. Nhưng change background thì layout sẽ không được reflow, mà repaint sẽ được trigger ngay.
 
 <h4>III. Network</h4>
 
-<b>Vendor bundles are anti pattern</b>
+<b>Vendor bundles are anti pattern?</b>
 
-So many peope who obsess like I can't synthetically get these three modules to be in this one bundle by using common chunks. So many people to froth at the mouth obsessed about trying to obtimize caching.
-By Caching, you only saving yourself the network time it takes to get the file. In some browsers, you might get byte code caching but that's just parse cost javascript, that's not eval and execute. 
-So you're doing yourself very little favors by trying to optimize for caching versus trying to optimize for the smallest amount of code that you actually need on your initial download of your page, right?
-So what you would find out is that by trying to do a bunch of caching, you end up with these ginormous bundles that you force entry points to ship down the pipe on your initial download/
-So I shouldn't discount caching as an optimization, it is still valuecable, but what I tend to say, maybe this is a little brash. But by code splitting, you can save many second, but with caching, it only mili seconds.
+Có nhiều người ám ảnh giống tôi về việc gom nhiều modules thành 1 bundle bằng cách sử dụng common chunks ~ spliting code.
+Có nhiều người cũng cố gắng optimize bằng cách caching.
+
+Bằng cách sử dụng caching, bạn chỉ có thể giảm được network time ~ chính là thời gian get được file. Ở một số browser, bạn có thể caching bằng byte code nhưng đó chỉ là parsed code Javascript, không phải là code có thể excute.
+
+Thay vì caching, bạn cũng có thể tự thử optimize bằng cách giảm lượng code cần thiết được dùng ở lần initial download, right?
+
+So, điều bạn cần làm đó là tìm cách giảm lượng file caching lại, thay vì một file bundle khổng lồ, bạn có thể force entry points get cả file ở lần initial download. Tôi không cho rằng optimize bằng kĩ thuật caching là không đủ hiệu quả, nó vẫn có giá trị. Nhưng tôi muốn nói rằng, nó có thể chỉ là phần tô điểm cho bài toán optimize. Bằng cách sử dụng kĩ thuật code splitting, bạn có thể tiết kiệm được rất nhiều giây đồng hồ khi load page, còn với caching, đôi khi chỉ ở mức mili giây.
